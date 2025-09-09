@@ -4,52 +4,280 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ash - Cybersecurity Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
   <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      background-color: #f9fafb;
-      font-family: Arial, sans-serif;
-      color: #333;
+      background: #000010;
+      font-family: "Orbitron", sans-serif;
+      color:#e0f2ff;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      position: relative;
     }
 
+    /* Neon Grid Background */
+    canvas#grid-bg {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      z-index:0;
+      background:#000010;
+    }
+
+    /* CRT scanlines */
+    body::after {
+      content:"";
+      position:fixed; top:0; left:0; right:0; bottom:0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03),
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      pointer-events:none;
+      z-index:2;
+      animation: scrollLines 8s linear infinite;
+    }
+    @keyframes scrollLines {
+      from { background-position:0 0; }
+      to { background-position:0 100px; }
+    }
+
+    /* Cursor trail */
+    .cursor-dot {
+      position: fixed;
+      top: 0; left: 0;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(0,191,255,0.9);
+      pointer-events: none;
+      transform: translate(-50%,-50%);
+      z-index: 10;
+      filter: blur(2px);
+    }
+
+    /* Card */
+    .card {
+      background: rgba(0,0,25,0.85);
+      border: 2px solid rgba(0,191,255,0.6);
+      border-radius: 20px;
+      padding: 50px 40px;
+      text-align: center;
+      width: 380px;
+      box-shadow: 0 0 40px rgba(0,191,255,0.6);
+      backdrop-filter: blur(20px);
+      position: relative;
+      z-index:5;
+    }
+
+    /* Avatar */
     .avatar-border {
-      padding: 4px;
+      padding: 6px;
       border-radius: 50%;
-      background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+      background: linear-gradient(135deg, #ec4899, #00bfff);
       display: inline-block;
+      box-shadow: 0 0 25px rgba(0,191,255,0.7);
+      animation: pulse 2.5s infinite;
     }
-
     .avatar-border img {
-      display: block;
       border-radius: 50%;
-      width: 160px;
-      height: 160px;
-      object-fit: cover;
+      width: 150px; height: 150px;
+      border: 4px solid #000010;
+      display: block;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow:0 0 25px rgba(0,191,255,0.7); }
+      50% { box-shadow:0 0 50px rgba(0,191,255,1); }
     }
 
-    h1 {
-      margin-top: 20px;
-      font-size: 2.5rem;
-      font-weight: bold;
+    /* Glitch name */
+    h1.glitch {
+      margin-top:25px;
+      font-size:2.6rem;
+      font-weight:800;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      position:relative;
+      color:#e0f2ff;
+      text-shadow:0 0 20px rgba(0,191,255,0.8);
+    }
+    h1.glitch::before, h1.glitch::after {
+      content: attr(data-text);
+      position:absolute; left:0;
+      width:100%;
+      overflow:hidden;
+      clip:rect(0,900px,0,0);
+    }
+    h1.glitch::before { animation: glitchTop 2s infinite linear alternate-reverse; color:#ec4899; }
+    h1.glitch::after { animation: glitchBottom 2s infinite linear alternate-reverse; color:#00bfff; }
+    @keyframes glitchTop {
+      10% {clip:rect(0,9999px,100%,0); transform:translate(-2px,-2px);}
+      30% {clip:rect(0,9999px,100%,0); transform:translate(2px,2px);}
+      50% {clip:rect(0,9999px,100%,0); transform:translate(-1px,1px);}
+    }
+    @keyframes glitchBottom {
+      10% {clip:rect(0,9999px,100%,0); transform:translate(2px,2px);}
+      30% {clip:rect(0,9999px,100%,0); transform:translate(-2px,-2px);}
+      50% {clip:rect(0,9999px,100%,0); transform:translate(1px,-1px);}
     }
 
-    p {
-      margin-top: 8px;
-      font-size: 1.2rem;
-      color: #555;
+    /* Subtitle */
+    p.subtitle {
+      margin-top:8px;
+      font-size:1.1rem;
+      color:#00bfff;
+      text-shadow:0 0 12px rgba(0,191,255,0.7);
     }
+
+    /* Buttons */
+    .links { margin-top:35px; display:flex; flex-direction:column; gap:15px; }
+    .links a, .links button {
+      text-decoration:none;
+      color:#fff;
+      padding:12px 20px;
+      border-radius:10px;
+      font-weight:600;
+      letter-spacing:1px;
+      background:linear-gradient(135deg,#ec4899,#00bfff);
+      border:none;
+      position:relative;
+      overflow:hidden;
+      text-align:center;
+      transition:.3s;
+      cursor:pointer;
+      font-family:"Orbitron",sans-serif;
+    }
+    .links a::after, .links button::after {
+      content:""; position:absolute;
+      width:300%; height:300%;
+      top:50%; left:50%;
+      background:rgba(255,255,255,0.2);
+      transform:translate(-50%,-50%) scale(0);
+      border-radius:50%;
+      transition: transform 0.5s, opacity 0.5s;
+    }
+    .links a:hover::after, .links button:hover::after {
+      transform:translate(-50%,-50%) scale(1);
+      opacity:0;
+    }
+    .links a:hover, .links button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 25px rgba(0,191,255,0.7), 0 0 45px rgba(236,72,153,0.6);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,25,0.9);
+      border: 2px solid #00bfff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      color: #e0f2ff;
+      font-family: "Orbitron", sans-serif;
+      font-size: 0.9rem;
+      box-shadow: 0 0 20px rgba(0,191,255,0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+      z-index: 10;
+    }
+    .toast.show { opacity: 1; }
   </style>
 </head>
 <body>
-  <div class="avatar-border">
-    <img src="https://pbs.twimg.com/profile_images/1960933103788081153/C1srnS50_400x400.jpg" alt="Ash Avatar">
+  <canvas id="grid-bg"></canvas>
+
+  <div class="card">
+    <div class="avatar-border">
+      <img src="https://avatars.githubusercontent.com/u/86099863?v=4" alt="Ash Avatar">
+    </div>
+    <h1 class="glitch" data-text="ASH">ASH</h1>
+    <p class="subtitle">Cybersecurity Analyst</p>
+
+    <div class="links">
+      <a href="https://x.com/ash3583" target="_blank">X</a>
+      <a href="https://twitch.tv/ash3584" target="_blank">Twitch</a>
+      <a href="https://linkedin.com/in/ash3583" target="_blank">LinkedIn</a>
+      <button onclick="copyDiscord()">Discord</button>
+    </div>
   </div>
-  <h1>Ash</h1>
-  <p>Cybersecurity Analyst</p>
+
+  <div id="toast" class="toast">Discord username copied!</div>
+
+  <script>
+    // Cursor trail
+    const dots = [];
+    for (let i = 0; i < 15; i++) {
+      const d = document.createElement("div");
+      d.className = "cursor-dot";
+      document.body.appendChild(d);
+      dots.push(d);
+    }
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
+    function animateDots() {
+      let x = mouseX, y = mouseY;
+      dots.forEach((dot, i) => {
+        dot.style.left = x + "px"; dot.style.top = y + "px";
+        const next = dots[i + 1] || dots[0];
+        x += (next.offsetLeft - x) * 0.3;
+        y += (next.offsetTop - y) * 0.3;
+      });
+      requestAnimationFrame(animateDots);
+    }
+    animateDots();
+
+    // Discord copy
+    function copyDiscord() {
+      navigator.clipboard.writeText("ash3583").then(() => {
+        const toast = document.getElementById("toast");
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2000);
+      });
+    }
+
+    // Neon grid background
+    const canvas = document.getElementById("grid-bg");
+    const ctx = canvas.getContext("2d");
+    function resizeCanvas(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const lines = [];
+    const spacing = 60;
+    for(let x=0;x<canvas.width;x+=spacing) lines.push({x, y:0});
+    function drawGrid(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.strokeStyle='rgba(0,191,255,0.15)';
+      ctx.lineWidth=1;
+      // vertical
+      for(let l of lines){
+        ctx.beginPath();
+        ctx.moveTo(l.x,0);
+        ctx.lineTo(l.x,canvas.height);
+        ctx.stroke();
+      }
+      // horizontal
+      for(let y=0;y<canvas.height;y+=spacing){
+        ctx.beginPath();
+        ctx.moveTo(0,y);
+        ctx.lineTo(canvas.width,y);
+        ctx.stroke();
+      }
+    }
+    function animateGrid(){
+      drawGrid();
+      requestAnimationFrame(animateGrid);
+    }
+    animateGrid();
+  </script>
 </body>
 </html>
