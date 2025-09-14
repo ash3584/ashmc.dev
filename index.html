@@ -1,283 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ash - Cybersecurity Analyst</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Ash - Software Engineer & Cybersecurity Enthusiast</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      background: #000010;
-      font-family: "Orbitron", sans-serif;
-      color:#e0f2ff;
-      height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      position: relative;
-    }
-
-    /* Neon Grid Background */
-    canvas#grid-bg {
-      position: fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      z-index:0;
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
       background:#000010;
-    }
-
-    /* CRT scanlines */
-    body::after {
-      content:"";
-      position:fixed; top:0; left:0; right:0; bottom:0;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.03),
-        rgba(255,255,255,0.03) 1px,
-        transparent 1px,
-        transparent 3px
-      );
-      pointer-events:none;
-      z-index:2;
-      animation: scrollLines 8s linear infinite;
-    }
-    @keyframes scrollLines {
-      from { background-position:0 0; }
-      to { background-position:0 100px; }
-    }
-
-    /* Cursor trail */
-    .cursor-dot {
-      position: fixed;
-      top: 0; left: 0;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: rgba(0,191,255,0.9);
-      pointer-events: none;
-      transform: translate(-50%,-50%);
-      z-index: 10;
-      filter: blur(2px);
-    }
-
-    /* Card */
-    .card {
-      background: rgba(0,0,25,0.85);
-      border: 2px solid rgba(0,191,255,0.6);
-      border-radius: 20px;
-      padding: 50px 40px;
-      text-align: center;
-      width: 380px;
-      box-shadow: 0 0 40px rgba(0,191,255,0.6);
-      backdrop-filter: blur(20px);
-      position: relative;
-      z-index:5;
-    }
-
-    /* Avatar */
-    .avatar-border {
-      padding: 6px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ec4899, #00bfff);
-      display: inline-block;
-      box-shadow: 0 0 25px rgba(0,191,255,0.7);
-      animation: pulse 2.5s infinite;
-    }
-    .avatar-border img {
-      border-radius: 50%;
-      width: 150px; height: 150px;
-      border: 4px solid #000010;
-      display: block;
-    }
-    @keyframes pulse {
-      0%,100% { box-shadow:0 0 25px rgba(0,191,255,0.7); }
-      50% { box-shadow:0 0 50px rgba(0,191,255,1); }
-    }
-
-    /* Glitch name */
-    h1.glitch {
-      margin-top:25px;
-      font-size:2.6rem;
-      font-weight:800;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      position:relative;
-      color:#e0f2ff;
-      text-shadow:0 0 20px rgba(0,191,255,0.8);
-    }
-    h1.glitch::before, h1.glitch::after {
-      content: attr(data-text);
-      position:absolute; left:0;
-      width:100%;
-      overflow:hidden;
-      clip:rect(0,900px,0,0);
-    }
-    h1.glitch::before { animation: glitchTop 2s infinite linear alternate-reverse; color:#ec4899; }
-    h1.glitch::after { animation: glitchBottom 2s infinite linear alternate-reverse; color:#00bfff; }
-    @keyframes glitchTop {
-      10% {clip:rect(0,9999px,100%,0); transform:translate(-2px,-2px);}
-      30% {clip:rect(0,9999px,100%,0); transform:translate(2px,2px);}
-      50% {clip:rect(0,9999px,100%,0); transform:translate(-1px,1px);}
-    }
-    @keyframes glitchBottom {
-      10% {clip:rect(0,9999px,100%,0); transform:translate(2px,2px);}
-      30% {clip:rect(0,9999px,100%,0); transform:translate(-2px,-2px);}
-      50% {clip:rect(0,9999px,100%,0); transform:translate(1px,-1px);}
-    }
-
-    /* Subtitle */
-    p.subtitle {
-      margin-top:8px;
-      font-size:1.1rem;
-      color:#00bfff;
-      text-shadow:0 0 12px rgba(0,191,255,0.7);
-    }
-
-    /* Buttons */
-    .links { margin-top:35px; display:flex; flex-direction:column; gap:15px; }
-    .links a, .links button {
-      text-decoration:none;
-      color:#fff;
-      padding:12px 20px;
-      border-radius:10px;
-      font-weight:600;
-      letter-spacing:1px;
-      background:linear-gradient(135deg,#ec4899,#00bfff);
-      border:none;
-      position:relative;
-      overflow:hidden;
-      text-align:center;
-      transition:.3s;
-      cursor:pointer;
       font-family:"Orbitron",sans-serif;
+      color:#e0f2ff;
+      line-height:1.7;
     }
-    .links a::after, .links button::after {
-      content:""; position:absolute;
-      width:300%; height:300%;
-      top:50%; left:50%;
-      background:rgba(255,255,255,0.2);
-      transform:translate(-50%,-50%) scale(0);
-      border-radius:50%;
-      transition: transform 0.5s, opacity 0.5s;
+    a{color:#00bfff;text-decoration:none}
+    a:hover{color:#ec4899}
+
+    /* Navbar */
+    nav{
+      position:sticky;top:0;z-index:1000;
+      background:rgba(0,0,25,0.85);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid rgba(0,191,255,0.3);
+      display:flex;justify-content:center;gap:35px;
+      padding:15px 10px;
+      box-shadow:0 0 15px rgba(0,191,255,0.2);
     }
-    .links a:hover::after, .links button:hover::after {
-      transform:translate(-50%,-50%) scale(1);
-      opacity:0;
+    nav a{color:#e0f2ff;font-weight:600;transition:.3s}
+    nav a:hover{color:#00bfff;text-shadow:0 0 10px #00bfff;}
+
+    /* Layout */
+    .container{max-width:1100px;margin:auto;padding:0 20px;}
+    section{padding:80px 0;text-align:center;}
+    h2{font-size:2rem;margin-bottom:25px;text-shadow:0 0 15px rgba(0,191,255,0.7);}
+    p{max-width:800px;margin:auto;}
+
+    /* Hero */
+    .hero img{
+      width:200px;height:200px;border-radius:50%;
+      border:5px solid #00bfff;
+      box-shadow:0 0 40px #00bfff,0 0 80px #ec4899;
+      animation:pulse 3s infinite;
     }
-    .links a:hover, .links button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 25px rgba(0,191,255,0.7), 0 0 45px rgba(236,72,153,0.6);
+    .hero h1{font-size:3rem;margin-top:20px;text-shadow:0 0 20px #00bfff,0 0 40px #ec4899;}
+    .hero p{font-size:1.3rem;color:#00bfff;margin-top:10px;text-shadow:0 0 8px #00bfff;}
+    @keyframes pulse{
+      0%,100%{box-shadow:0 0 40px #00bfff,0 0 80px #ec4899;}
+      50%{box-shadow:0 0 60px #00bfff,0 0 100px #ec4899;}
     }
 
-    /* Toast */
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,25,0.9);
-      border: 2px solid #00bfff;
-      padding: 12px 20px;
-      border-radius: 12px;
-      color: #e0f2ff;
-      font-family: "Orbitron", sans-serif;
-      font-size: 0.9rem;
-      box-shadow: 0 0 20px rgba(0,191,255,0.6);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .3s ease;
-      z-index: 10;
+    /* Floating panels */
+    .panel{
+      background:rgba(0,0,25,0.75);
+      border:1px solid rgba(0,191,255,0.3);
+      border-radius:16px;
+      padding:30px;
+      box-shadow:0 0 20px rgba(0,191,255,0.15);
+      margin-top:30px;
     }
-    .toast.show { opacity: 1; }
+
+    /* Hobbies */
+    .hobbies{display:flex;flex-wrap:wrap;gap:15px;justify-content:center;margin-top:20px;}
+    .hobbies li{
+      list-style:none;
+      background:rgba(0,0,25,0.85);
+      border:1px solid rgba(0,191,255,0.4);
+      border-radius:10px;
+      padding:10px 20px;
+      transition:.3s;
+      box-shadow:0 0 10px rgba(0,191,255,0.2);
+    }
+    .hobbies li:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(0,191,255,0.5);}
+
+    /* Socials */
+    .socials{
+      display:flex;flex-wrap:wrap;gap:25px;justify-content:center;margin-top:20px;
+    }
+    .socials a{
+      font-size:2rem;color:#e0f2ff;transition:.3s;
+    }
+    .socials a:hover{color:#00bfff;transform:scale(1.15);}
+
+    /* Minecraft Grid */
+    .mc-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:25px;margin-top:30px;
+    }
+    .mc-item{
+      background:rgba(0,0,25,0.7);
+      border:1px solid rgba(0,191,255,0.3);
+      border-radius:12px;
+      padding:20px;
+      box-shadow:0 0 15px rgba(0,191,255,0.15);
+    }
+    .mc-item img{
+      width:90px;height:90px;border-radius:8px;
+      border:2px solid #00bfff;
+    }
+    .mc-item h4{margin-top:12px;font-size:1.1rem;}
+    .mc-links{
+      display:flex;gap:12px;justify-content:center;margin-top:10px;
+    }
+    .mc-links a{
+      color:#00bfff;
+      padding:5px 10px;
+      border:1px solid rgba(0,191,255,0.5);
+      border-radius:6px;
+      background:rgba(0,0,25,0.6);
+      transition:.3s;font-size:0.9rem;
+    }
+    .mc-links a:hover{background:#00bfff;color:#000;font-weight:600;}
+
+    /* Contact */
+    .contact a{color:#00bfff;font-size:1.2rem;}
+    .contact a:hover{text-decoration:underline;}
+
+    footer{text-align:center;padding:25px;color:#888;font-size:0.9rem;margin-top:40px;border-top:1px solid rgba(0,191,255,0.2);}
   </style>
 </head>
 <body>
-  <canvas id="grid-bg"></canvas>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#hobbies">Hobbies</a>
+    <a href="#socials">Socials</a>
+    <a href="#minecraft">Minecraft</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-  <div class="card">
-    <div class="avatar-border">
-      <img src="https://avatars.githubusercontent.com/u/86099863?v=4" alt="Ash Avatar">
-    </div>
-    <h1 class="glitch" data-text="ASH">ASH</h1>
-    <p class="subtitle">Cybersecurity Analyst</p>
+  <section class="hero">
+    <img src="https://avatars.githubusercontent.com/u/86099863?v=4" alt="Ash Avatar">
+    <h1>Hey! I'm Ash</h1>
+    <p>Software Engineer &amp; Cybersecurity Enthusiast</p>
+  </section>
 
-    <div class="links">
-      <a href="https://x.com/ash3583" target="_blank">X</a>
-      <a href="https://twitch.tv/ash3584" target="_blank">Twitch</a>
-      <a href="https://linkedin.com/in/ash3583" target="_blank">LinkedIn</a>
-      <button onclick="copyDiscord()">Discord</button>
-    </div>
+  <div class="container">
+    <section id="about" class="panel">
+      <h2>About Me</h2>
+      <p>I'm Ash, a passionate software engineer and cybersecurity enthusiast who thrives on building secure, efficient applications. Ever since I was a kid, technology has been my playground—now it’s my career and my creative outlet. I love problem-solving, exploring emerging tech, and sharing knowledge with the community.</p>
+    </section>
+
+    <section id="hobbies" class="panel">
+      <h2>My Hobbies</h2>
+      <ul class="hobbies">
+        <li>Photography</li>
+        <li>Gaming</li>
+        <li>Watching Movies</li>
+        <li>Listening to Music</li>
+        <li>Everything Technology</li>
+      </ul>
+    </section>
+
+    <section id="socials" class="panel">
+      <h2>Social Media</h2>
+      <div class="socials">
+        <a href="#" title="Discord"><i class="fa-brands fa-discord"></i></a>
+        <a href="#" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+        <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" title="Bluesky"><i class="fa-solid fa-cloud"></i></a>
+        <a href="#" title="Reddit"><i class="fa-brands fa-reddit"></i></a>
+        <a href="#" title="Twitch"><i class="fa-brands fa-twitch"></i></a>
+        <a href="#" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </section>
+
+    <section id="minecraft" class="panel">
+      <h2>My Minecraft Accounts</h2>
+      <div class="mc-grid">
+        <div class="mc-item">
+          <img src="https://mineskin.eu/helm/Configing/90.png" alt="Configing">
+          <h4>Configing</h4>
+          <div class="mc-links">
+            <a href="https://namemc.com/Configing" target="_blank">NameMC</a>
+            <a href="https://laby.net/@Configing" target="_blank">Laby</a>
+          </div>
+        </div>
+        <div class="mc-item">
+          <img src="https://mineskin.eu/helm/Configingg/90.png" alt="Configingg">
+          <h4>Configingg</h4>
+          <div class="mc-links">
+            <a href="https://namemc.com/Configingg" target="_blank">NameMC</a>
+            <a href="https://laby.net/@Configingg" target="_blank">Laby</a>
+          </div>
+        </div>
+        <div class="mc-item">
+          <img src="https://mineskin.eu/helm/AshMC/90.png" alt="AshMC">
+          <h4>AshMC</h4>
+          <div class="mc-links">
+            <a href="https://namemc.com/AshMC" target="_blank">NameMC</a>
+            <a href="https://laby.net/@AshMC" target="_blank">Laby</a>
+          </div>
+        </div>
+        <div class="mc-item">
+          <img src="https://mineskin.eu/helm/iHaveACape/90.png" alt="iHaveACape">
+          <h4>iHaveACape</h4>
+          <div class="mc-links">
+            <a href="https://namemc.com/iHaveACape" target="_blank">NameMC</a>
+            <a href="https://laby.net/@iHaveACape" target="_blank">Laby</a>
+          </div>
+        </div>
+        <div class="mc-item">
+          <img src="https://mineskin.eu/helm/CryptoBTC/90.png" alt="CryptoBTC">
+          <h4>CryptoBTC</h4>
+          <div class="mc-links">
+            <a href="https://namemc.com/CryptoBTC" target="_blank">NameMC</a>
+            <a href="https://laby.net/@CryptoBTC" target="_blank">Laby</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="panel contact">
+      <h2>Contact</h2>
+      <p>Email me at <a href="mailto:hi@configing.net">hi@configing.net</a></p>
+    </section>
   </div>
 
-  <div id="toast" class="toast">Discord username copied!</div>
-
-  <script>
-    // Cursor trail
-    const dots = [];
-    for (let i = 0; i < 15; i++) {
-      const d = document.createElement("div");
-      d.className = "cursor-dot";
-      document.body.appendChild(d);
-      dots.push(d);
-    }
-    let mouseX = 0, mouseY = 0;
-    document.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
-    function animateDots() {
-      let x = mouseX, y = mouseY;
-      dots.forEach((dot, i) => {
-        dot.style.left = x + "px"; dot.style.top = y + "px";
-        const next = dots[i + 1] || dots[0];
-        x += (next.offsetLeft - x) * 0.3;
-        y += (next.offsetTop - y) * 0.3;
-      });
-      requestAnimationFrame(animateDots);
-    }
-    animateDots();
-
-    // Discord copy
-    function copyDiscord() {
-      navigator.clipboard.writeText("ash3583").then(() => {
-        const toast = document.getElementById("toast");
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 2000);
-      });
-    }
-
-    // Neon grid background
-    const canvas = document.getElementById("grid-bg");
-    const ctx = canvas.getContext("2d");
-    function resizeCanvas(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    const lines = [];
-    const spacing = 60;
-    for(let x=0;x<canvas.width;x+=spacing) lines.push({x, y:0});
-    function drawGrid(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.strokeStyle='rgba(0,191,255,0.15)';
-      ctx.lineWidth=1;
-      // vertical
-      for(let l of lines){
-        ctx.beginPath();
-        ctx.moveTo(l.x,0);
-        ctx.lineTo(l.x,canvas.height);
-        ctx.stroke();
-      }
-      // horizontal
-      for(let y=0;y<canvas.height;y+=spacing){
-        ctx.beginPath();
-        ctx.moveTo(0,y);
-        ctx.lineTo(canvas.width,y);
-        ctx.stroke();
-      }
-    }
-    function animateGrid(){
-      drawGrid();
-      requestAnimationFrame(animateGrid);
-    }
-    animateGrid();
-  </script>
+  <footer>© 2025 Ash (Configing) — All rights reserved.</footer>
 </body>
 </html>
