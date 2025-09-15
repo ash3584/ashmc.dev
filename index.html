@@ -24,12 +24,49 @@
       background:rgba(0,0,25,0.85);
       backdrop-filter:blur(8px);
       border-bottom:1px solid rgba(0,191,255,0.3);
-      display:flex;justify-content:center;gap:35px;
-      padding:15px 10px;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:15px 20px;
       box-shadow:0 0 15px rgba(0,191,255,0.2);
+      flex-wrap:wrap;
+    }
+    nav .menu-icon{
+      display:none;
+      font-size:1.8rem;
+      color:#00bfff;
+      cursor:pointer;
+    }
+    nav .menu{
+      display:flex;
+      gap:35px;
     }
     nav a{color:#e0f2ff;font-weight:600;transition:.3s}
     nav a:hover{color:#00bfff;text-shadow:0 0 10px #00bfff;}
+
+    #menu-toggle{
+      display:none;
+    }
+
+    @media (max-width:768px){
+      nav .menu-icon{
+        display:block;
+      }
+      nav .menu{
+        display:none;
+        width:100%;
+        flex-direction:column;
+        background:rgba(0,0,25,0.95);
+        margin-top:15px;
+        border-top:1px solid rgba(0,191,255,0.3);
+      }
+      nav .menu a{
+        padding:12px 0;
+        border-bottom:1px solid rgba(0,191,255,0.15);
+        text-align:center;
+      }
+      #menu-toggle:checked + label + .menu{
+        display:flex;
+      }
+    }
 
     /* Layout */
     .container{max-width:1100px;margin:auto;padding:0 20px;}
@@ -122,11 +159,15 @@
 </head>
 <body>
   <nav>
-    <a href="#about">About</a>
-    <a href="#hobbies">Hobbies</a>
-    <a href="#socials">Socials</a>
-    <a href="#minecraft">Minecraft</a>
-    <a href="#contact">Contact</a>
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+    <div class="menu">
+      <a href="#about">About</a>
+      <a href="#hobbies">Hobbies</a>
+      <a href="#socials">Socials</a>
+      <a href="#minecraft">Minecraft</a>
+      <a href="#contact">Contact</a>
+    </div>
   </nav>
 
   <section class="hero">
