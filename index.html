@@ -10,150 +10,96 @@
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
-      background:#000010;
+      background:linear-gradient(180deg,#020212 0%,#0a0a2a 100%);
       font-family:"Orbitron",sans-serif;
       color:#e0f2ff;
       line-height:1.7;
     }
     a{color:#00bfff;text-decoration:none}
     a:hover{color:#ec4899}
-
     /* Navbar */
     nav{
       position:sticky;top:0;z-index:1000;
       background:rgba(0,0,25,0.85);
       backdrop-filter:blur(8px);
       border-bottom:1px solid rgba(0,191,255,0.3);
-      display:flex;align-items:center;justify-content:space-between;
       padding:15px 20px;
       box-shadow:0 0 15px rgba(0,191,255,0.2);
-      flex-wrap:wrap;
     }
-    nav .menu-icon{
-      display:none;
-      font-size:1.8rem;
-      color:#00bfff;
-      cursor:pointer;
-    }
-    nav .menu{
-      display:flex;
-      gap:35px;
-    }
-    nav a{color:#e0f2ff;font-weight:600;transition:.3s}
+    nav .menu-icon{display:none;font-size:1.8rem;color:#00bfff;cursor:pointer;}
+    nav .menu{display:flex;justify-content:center;gap:35px;flex-wrap:wrap;}
+    nav a{color:#e0f2ff;font-weight:600;transition:.3s;font-size:1.05rem;}
     nav a:hover{color:#00bfff;text-shadow:0 0 10px #00bfff;}
-
-    #menu-toggle{
-      display:none;
-    }
-
+    #menu-toggle{display:none;}
     @media (max-width:768px){
-      nav .menu-icon{
-        display:block;
-      }
+      nav .menu-icon{display:block;text-align:center;margin-bottom:10px;}
       nav .menu{
         display:none;
-        width:100%;
         flex-direction:column;
         background:rgba(0,0,25,0.95);
-        margin-top:15px;
         border-top:1px solid rgba(0,191,255,0.3);
+        padding:15px 0;
       }
       nav .menu a{
         padding:12px 0;
         border-bottom:1px solid rgba(0,191,255,0.15);
         text-align:center;
       }
-      #menu-toggle:checked + label + .menu{
-        display:flex;
-      }
+      #menu-toggle:checked + label + .menu{display:flex;}
     }
-
     /* Layout */
     .container{max-width:1100px;margin:auto;padding:0 20px;}
     section{padding:80px 0;text-align:center;}
     h2{font-size:2rem;margin-bottom:25px;text-shadow:0 0 15px rgba(0,191,255,0.7);}
     p{max-width:800px;margin:auto;}
-
     /* Hero */
+    .hero{text-align:center;padding:100px 20px 80px;}
     .hero img{
       width:200px;height:200px;border-radius:50%;
       border:5px solid #00bfff;
       box-shadow:0 0 40px #00bfff,0 0 80px #ec4899;
       animation:pulse 3s infinite;
     }
-    .hero h1{font-size:3rem;margin-top:20px;text-shadow:0 0 20px #00bfff,0 0 40px #ec4899;}
-    .hero p{font-size:1.3rem;color:#00bfff;margin-top:10px;text-shadow:0 0 8px #00bfff;}
+    .hero h1{
+      font-size:3rem;margin-top:20px;
+      background:linear-gradient(90deg,#00bfff,#ec4899);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:0 0 15px rgba(0,191,255,0.3);
+    }
+    .hero p{font-size:1.3rem;color:#a0dfff;margin-top:10px;}
     @keyframes pulse{
       0%,100%{box-shadow:0 0 40px #00bfff,0 0 80px #ec4899;}
       50%{box-shadow:0 0 60px #00bfff,0 0 100px #ec4899;}
     }
-
-    /* Floating panels */
+    /* Panels */
     .panel{
-      background:rgba(0,0,25,0.75);
+      background:rgba(0,0,25,0.7);
       border:1px solid rgba(0,191,255,0.3);
-      border-radius:16px;
-      padding:30px;
-      box-shadow:0 0 20px rgba(0,191,255,0.15);
+      border-radius:20px;
+      padding:40px;
+      box-shadow:0 0 25px rgba(0,191,255,0.15);
       margin-top:30px;
+      transition:transform .3s,box-shadow .3s;
     }
-
+    .panel:hover{transform:translateY(-5px);box-shadow:0 0 30px rgba(0,191,255,0.4);}
     /* Hobbies */
     .hobbies{display:flex;flex-wrap:wrap;gap:15px;justify-content:center;margin-top:20px;}
     .hobbies li{
-      list-style:none;
-      background:rgba(0,0,25,0.85);
+      list-style:none;background:rgba(0,0,25,0.85);
       border:1px solid rgba(0,191,255,0.4);
-      border-radius:10px;
-      padding:10px 20px;
+      border-radius:12px;
+      padding:12px 24px;
       transition:.3s;
       box-shadow:0 0 10px rgba(0,191,255,0.2);
     }
     .hobbies li:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(0,191,255,0.5);}
-
     /* Socials */
-    .socials{
-      display:flex;flex-wrap:wrap;gap:25px;justify-content:center;margin-top:20px;
-    }
-    .socials a{
-      font-size:2rem;color:#e0f2ff;transition:.3s;
-    }
-    .socials a:hover{color:#00bfff;transform:scale(1.15);}
-
-    /* Minecraft Grid */
-    .mc-grid{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-      gap:25px;margin-top:30px;
-    }
-    .mc-item{
-      background:rgba(0,0,25,0.7);
-      border:1px solid rgba(0,191,255,0.3);
-      border-radius:12px;
-      padding:20px;
-      box-shadow:0 0 15px rgba(0,191,255,0.15);
-    }
-    .mc-item img{
-      width:90px;height:90px;border-radius:8px;
-      border:2px solid #00bfff;
-    }
-    .mc-item h4{margin-top:12px;font-size:1.1rem;}
-    .mc-links{
-      display:flex;gap:12px;justify-content:center;margin-top:10px;
-    }
-    .mc-links a{
-      color:#00bfff;
-      padding:5px 10px;
-      border:1px solid rgba(0,191,255,0.5);
-      border-radius:6px;
-      background:rgba(0,0,25,0.6);
-      transition:.3s;font-size:0.9rem;
-    }
-    .mc-links a:hover{background:#00bfff;color:#000;font-weight:600;}
-
-    /* Contact */
+    .socials{display:flex;flex-wrap:wrap;gap:25px;justify-content:center;margin-top:20px;}
+    .socials a{font-size:2rem;color:#e0f2ff;transition:.3s;}
+    .socials a:hover{color:#00bfff;transform:scale(1.2);}
     .contact a{color:#00bfff;font-size:1.2rem;}
     .contact a:hover{text-decoration:underline;}
-
     footer{text-align:center;padding:25px;color:#888;font-size:0.9rem;margin-top:40px;border-top:1px solid rgba(0,191,255,0.2);}
   </style>
 </head>
@@ -165,7 +111,6 @@
       <a href="#about">About</a>
       <a href="#hobbies">Hobbies</a>
       <a href="#socials">Socials</a>
-      <a href="#minecraft">Minecraft</a>
       <a href="#contact">Contact</a>
     </div>
   </nav>
@@ -196,80 +141,26 @@
     <section id="socials" class="panel">
       <h2>Social Media</h2>
       <div class="socials">
-        <a href="#" title="Discord"><i class="fa-brands fa-discord"></i></a>
-        <a href="#" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
-        <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-        <a href="#" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="#" title="Bluesky"><i class="fa-solid fa-cloud"></i></a>
-        <a href="#" title="Reddit"><i class="fa-brands fa-reddit"></i></a>
-        <a href="#" title="Twitch"><i class="fa-brands fa-twitch"></i></a>
-        <a href="#" title="Steam"><i class="fa-brands fa-steam"></i></a>
-        <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
-        <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-      </div>
-    </section>
-
-    <section id="minecraft" class="panel">
-      <h2>My Minecraft Accounts</h2>
-      <div class="mc-grid">
-        <div class="mc-item">
-          <img src="https://mineskin.eu/helm/Configing/90.png" alt="Configing">
-          <h4>Configing</h4>
-          <div class="mc-links">
-            <a href="https://namemc.com/Configing" target="_blank">NameMC</a>
-            <a href="https://laby.net/@Configing" target="_blank">Laby</a>
-          </div>
-        </div>
-        <div class="mc-item">
-          <img src="https://mineskin.eu/helm/Configingg/90.png" alt="Configingg">
-          <h4>Configingg</h4>
-          <div class="mc-links">
-            <a href="https://namemc.com/Configingg" target="_blank">NameMC</a>
-            <a href="https://laby.net/@Configingg" target="_blank">Laby</a>
-          </div>
-        </div>
-        <div class="mc-item">
-          <img src="https://mineskin.eu/helm/CryptoBTC/90.png" alt="CryptoBTC">
-          <h4>CryptoBTC</h4>
-          <div class="mc-links">
-            <a href="https://namemc.com/CryptoBTC" target="_blank">NameMC</a>
-            <a href="https://laby.net/@CryptoBTC" target="_blank">Laby</a>
-          </div>
-        </div>
-        <div class="mc-item">
-          <img src="https://mineskin.eu/helm/iHaveACape/90.png" alt="iHaveACape">
-          <h4>iHaveACape</h4>
-          <div class="mc-links">
-            <a href="https://namemc.com/iHaveACape" target="_blank">NameMC</a>
-            <a href="https://laby.net/@iHaveACape" target="_blank">Laby</a>
-          </div>
-        </div>
-        <div class="mc-item">
-          <img src="https://mineskin.eu/helm/AshMC/90.png" alt="AshMC">
-          <h4>AshMC</h4>
-          <div class="mc-links">
-            <a href="https://namemc.com/AshMC" target="_blank">NameMC</a>
-            <a href="https://laby.net/@AshMC" target="_blank">Laby</a>
-          </div>
-        </div>
-        <div class="mc-item">
-          <img src="https://mineskin.eu/helm/AshTV/90.png" alt="AshTV">
-          <h4>AshTV</h4>
-          <div class="mc-links">
-            <a href="https://namemc.com/AshTV" target="_blank">NameMC</a>
-            <a href="https://laby.net/@AshTV" target="_blank">Laby</a>
-          </div>
-        </div>
+        <a href="#"><i class="fa-brands fa-discord"></i></a>
+        <a href="#"><i class="fa-brands fa-telegram"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-solid fa-cloud"></i></a>
+        <a href="#"><i class="fa-brands fa-reddit"></i></a>
+        <a href="#"><i class="fa-brands fa-twitch"></i></a>
+        <a href="#"><i class="fa-brands fa-steam"></i></a>
+        <a href="#"><i class="fa-brands fa-github"></i></a>
+        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
       </div>
     </section>
 
     <section id="contact" class="panel contact">
       <h2>Contact</h2>
-      <p>Email me at <a href="mailto:hi@configing.net">hi@configing.net</a></p>
+      <p>Email me at <a href="mailto:hello@ashmc.co.uk">hello@ashmc.co.uk</a></p>
     </section>
   </div>
 
-  <footer>© 2025 Ash (Configing) — All rights reserved.</footer>
+  <footer>© 2025 Ash — All rights reserved.</footer>
 </body>
 </html>
